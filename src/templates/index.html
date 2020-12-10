@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="container mt-5">	
+	<div class="card-group mt-5">
+	{% for person in persons %}
+		<div class="card">
+			<img src="{{ person.image.url }}" class="card-img-top" alt="...">
+				<div class="card-body">
+				<h5 class="card-title"><a href="">{{ person.user.first_name }}</a></h5>
+				<p class="card-text">{{ person.bio }}</p>
+				<p class="card-text"><small class="text-muted">{{ person.date|timesince }} ago.</small></p>
+			</div>
+		</div>
+	{% endfor %}
+	</div>
+</div>
+
+{% endblock content %}

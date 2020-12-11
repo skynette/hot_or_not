@@ -1,0 +1,1 @@
+web: gunicorn Hotornot.wsgi --log-file -

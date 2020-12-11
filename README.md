@@ -1,4 +1,8 @@
 # Hot-or-Not
+Hot or Not is a rating site that allows users to rate  
+the attractiveness of photos submitted voluntarily by others  
+
+
 Fun project for anyone to contribute to  
 Hot or Not  
 upvote if the picture is hot or downvote if not  

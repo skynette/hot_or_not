@@ -1,20 +1,56 @@
 {% extends 'base.html' %}
+{% load static %}
+
 
 {% block content %}
 
-<div class="container mt-5">	
-	<div class="card-group mt-5">
-	{% for person in persons %}
-		<div class="card">
-			<img src="{{ person.image.url }}" class="card-img-top" alt="...">
-				<div class="card-body">
-				<h5 class="card-title"><a href="">{{ person.user.first_name }}</a></h5>
-				<p class="card-text">{{ person.bio }}</p>
-				<p class="card-text"><small class="text-muted">{{ person.date|timesince }} ago.</small></p>
-			</div>
-		</div>
-	{% endfor %}
-	</div>
-</div>
+  <!-- Page Content -->
+  <div class="container text-center mt-5">
+
+    <div class="row text-center">
+      <div class="col-md-3 col-lg-3 col-sm-3"></div>
+      <!-- Blog Entries Column -->
+      <div class="col-md-6 col-lg-6 col-sm-6">
+        <h1 class="">Vote for your fav model</h1>
+      {% for person in persons %}
+        <!-- Blog Post -->
+        <div class="card-header text-white bg-danger" style="width: 100%;">position: {{ forloop.counter }} of {{ total }}</div>
+        <div class="card mb-4" style="width: 100%;">
+          <img src="{{ person.image.url }}" height="200px" width="100%" alt="" class="img-fluid rounded">
+          <div class="card-body">
+            <h4 class="card-title">{{ person.user.username|capfirst }}</h4>
+            {% comment %} <form action="" method="post">
+            {% csrf_token %}
+              <input class="btn btn-danger" type="submit" value="Hot"><span class="badge badge-red">9</span>
+              <input class="btn btn-primary" type="submit" value="Not"><span class="badge badge-red">0</span>
+              </form> {% endcomment %}
+              <a href="{% url 'hotvote' person.id %}" class="btn btn-danger active" role="button" aria-pressed="true">Hot <span class="badge badge-red">{{ person.hot_vote_count }}</span></a>
+              <a href="{% url 'notvote' person.id %}" class="btn btn-primary active" role="button" aria-pressed="true">Not <span class="badge badge-red">{{ person.not_vote_count }}</span></a>
+          </div>
+        </div>
+        {% endfor %}
+      
+
+        <!-- Pagination -->
+        <ul class="pagination justify-content-center mb-4">
+          <li class="page-item disabled">
+            <a class="page-link" href="#">&larr; Older</a>
+          </li>
+          <li class="page-item disabled">
+            <a class="page-link" href="#">Newer &rarr;</a>
+          </li>
+        </ul>
+
+      </div>
+
+      <!-- Sidebar Widgets Column -->
+      <div class="col-md-3 col-lg-3 col-sm-3">
+      </div>
+
+    </div>
+    <!-- /.row -->
+
+  </div>
+  <!-- /.container -->
 
 {% endblock content %}

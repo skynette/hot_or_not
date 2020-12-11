@@ -25,13 +25,19 @@ class Person(models.Model):
 	date = models.DateTimeField(auto_now_add=True, null=True, blank=True)
 	hot_vote = models.IntegerField(default=0)
 	not_vote = models.IntegerField(default=0)
-
+	score = models.IntegerField(default=0)
 	def __str__(self):
 		return self.user.username
 	
 	@property
 	def hot_vote_count(self):
-		return Hotvote.objects.filter(Person=self).count()
+		return Hotvote.objects.filter(person=self).count()
 	@property
 	def not_vote_count(self):
-		return Notvote.objects.filter(Person=self).count()
+		return Notvote.objects.filter(person=self).count()
+
+	def save(self, *args, **kwargs):
+		self.hot_vote = self.hot_vote_count
+		self.not_vote = self.not_vote_count
+		self.score = self.hot_vote - self.not_vote
+		super().save(*args, **kwargs)
